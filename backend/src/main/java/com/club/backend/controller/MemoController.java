@@ -22,6 +22,16 @@ public class MemoController {
         return ResponseEntity.ok().body(memos);
     }
 
+    @GetMapping("/memo/{id}")
+    public ResponseEntity<Memo> getMemoById(@PathVariable("id") Long memoId) {
+        Memo memo = memoService.getMemoById(memoId);
+        if (memo != null) {
+            return ResponseEntity.ok().body(memo);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/memo")
     public ResponseEntity<Memo> createMemo(@RequestBody MemoDTO memoDTO) {
         return memoService.saveMemo(memoDTO)
@@ -30,10 +40,10 @@ public class MemoController {
     }
 
     @PatchMapping("/memo/{id}")
-    public ResponseEntity<Memo> updateMemoField(@PathVariable Long id,
-                                                @RequestParam String fieldName,
-                                                @RequestParam Object value) {
-        Optional<Memo> updatedMemo = memoService.updateMemo(id, fieldName, value);
+    public ResponseEntity<Memo> updateMemoField(@PathVariable("id") Long memoId,
+                                                @RequestParam(name="fieldName") String fieldName,
+                                                @RequestParam(name="value") Object value) {
+        Optional<Memo> updatedMemo = memoService.updateMemo(memoId, fieldName, value);
         if (updatedMemo.isPresent()) {
             return ResponseEntity.ok().body(updatedMemo.get());
         } else {
@@ -42,8 +52,8 @@ public class MemoController {
     }
 
     @DeleteMapping("/memo/{id}")
-    public ResponseEntity<Void> deleteMemo(@PathVariable Long id) {
-        boolean deleted = memoService.deleteMemo(id);
+    public ResponseEntity<Void> deleteMemo(@PathVariable("id") Long memoId) {
+        boolean deleted = memoService.deleteMemo(memoId);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }

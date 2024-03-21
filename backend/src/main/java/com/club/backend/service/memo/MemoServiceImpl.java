@@ -33,6 +33,11 @@ public class MemoServiceImpl implements MemoService {
     }
 
     @Override
+    public Memo getMemoById(Long memoId) {
+        return memoRepository.findById(memoId).orElse(null);
+    }
+
+    @Override
     public Optional<Memo> updateMemo(Long id, String fieldName, Object value) {
         return memoRepository.findById(id).map(memo -> {
             switch (fieldName) {

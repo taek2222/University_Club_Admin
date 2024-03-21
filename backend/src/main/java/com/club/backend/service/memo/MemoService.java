@@ -10,6 +10,8 @@ public interface MemoService {
     Optional<Memo> saveMemo(MemoDTO memoDTO);
     Optional<List<Memo>> getAllMemos();
 
+    Memo getMemoById(Long memoId);
+
     Optional<Memo> updateMemo(Long id, String fieldName, Object value);
 
     boolean deleteMemo(Long id);
