@@ -35,7 +35,7 @@ const MemoList = ({ onSelectMemo }) => {
     const memoToUpdate = memos.find(memo => memo.memoId === memoId);
     const updatedMemo = { ...memoToUpdate, confirm: true };
   
-    apiClient.patch(`/memos/memo/${memoId}?fieldName=confirm`, updatedMemo)
+    apiClient.patch(`/memos/memo/${memoId}`, updatedMemo)
       .then(response => {
         if (response.status === 200) {
           const updatedMemos = memos.map(memo =>
