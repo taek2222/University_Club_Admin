@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
-    private final ClubRepository clubRepository;
     private final ScheduleRepository scheduleRepository;
 
     public List<ScheduleDTO> getAllSchedules() {
