@@ -16,4 +16,5 @@ public class MemoDTO {
     private String studentName;
     private String content;
     private String color;
+    private Boolean confirm;
 }

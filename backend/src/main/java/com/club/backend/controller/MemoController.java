@@ -53,9 +53,8 @@ public class MemoController {
 
     @PatchMapping("/memo/{id}")
     public ResponseEntity<Memo> updateMemoField(@PathVariable("id") Long memoId,
-                                                @RequestParam(name="fieldName") String fieldName,
-                                                @RequestParam(name="value") Object value) {
-        Optional<Memo> updatedMemo = memoService.updateMemo(memoId, fieldName, value);
+                                                @RequestBody MemoDTO memoDTO) {
+        Optional<Memo> updatedMemo = memoService.updateMemo(memoId, memoDTO);
         if (updatedMemo.isPresent()) {
             return ResponseEntity.ok().body(updatedMemo.get());
         } else {

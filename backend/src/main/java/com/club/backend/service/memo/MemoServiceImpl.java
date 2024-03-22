@@ -48,30 +48,15 @@ public class MemoServiceImpl implements MemoService {
     }
 
     @Override
-    public Optional<Memo> updateMemo(Long id, String fieldName, Object value) {
+    public Optional<Memo> updateMemo(Long id, MemoDTO memoDTO) {
         return memoRepository.findById(id).map(memo -> {
-            switch (fieldName) {
-                case "major":
-                    memo.setMajor((String) value);
-                    break;
-                case "classOf":
-                    memo.setClassOf((String) value);
-                    break;
-                case "anonymous":
-                    memo.setAnonymous((Boolean) value);
-                    break;
-                case "studentName":
-                    memo.setStudentName((String) value);
-                    break;
-                case "content":
-                    memo.setContent((String) value);
-                    break;
-                case "color":
-                    memo.setColor((String) value);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid field name: " + fieldName);
-            }
+            memo.setMajor(memoDTO.getMajor());
+            memo.setClassOf(memoDTO.getClassOf());
+            memo.setAnonymous(memoDTO.getAnonymous());
+            memo.setStudentName(memoDTO.getStudentName());
+            memo.setContent(memoDTO.getContent());
+            memo.setColor(memoDTO.getColor());
+            memo.setConfirm(memoDTO.getConfirm());
             return memoRepository.save(memo);
         });
     }

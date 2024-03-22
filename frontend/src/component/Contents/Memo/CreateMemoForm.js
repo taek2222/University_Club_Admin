@@ -29,6 +29,7 @@ const CreateMemoForm = () => {
           content: '',
           color: '',
         });
+        window.location.reload();
       })
       .catch(error => {
         console.error('Error creating memo:', error);

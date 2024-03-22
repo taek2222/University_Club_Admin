@@ -16,7 +16,7 @@ public interface MemoService {
 
     Memo getMemoById(Long memoId);
 
-    Optional<Memo> updateMemo(Long id, String fieldName, Object value);
+    Optional<Memo> updateMemo(Long id, MemoDTO memoDTO);
 
     boolean deleteMemo(Long id);
 }

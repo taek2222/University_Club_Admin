@@ -32,4 +32,7 @@ public class Memo {
 
     @Column(name="color")
     private String color;
+
+    @Column(name="confirm")
+    private Boolean confirm;
 }
