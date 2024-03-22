@@ -1,19 +1,22 @@
+// REVIEWED: 2024-03-22 by [Oh Yeon Taek]
 package com.club.backend.controller;
 
 import com.club.backend.dto.join.JoinDTO;
 import com.club.backend.service.join.JoinService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/joins")
 public class JoinController {
-    @Autowired
-    private JoinService joinService;
+    private final JoinService joinService;
 
-    @GetMapping("/joins/all")
+    @GetMapping("/all")
     public List<JoinDTO> getJoinsByAll() {
         return joinService.getJoinAllSearch();
     }

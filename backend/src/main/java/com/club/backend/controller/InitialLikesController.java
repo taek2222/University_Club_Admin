@@ -1,21 +1,22 @@
+// REVIEWED: 2024-03-22 by [Oh Yeon Taek]
 package com.club.backend.controller;
 
 import com.club.backend.dto.club.InitialLikesDTO;
 import com.club.backend.service.club.InitialLikesService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/initialLikes")
 public class InitialLikesController {
-    @Autowired
-    private InitialLikesService initialLikesService;
+    private final InitialLikesService initialLikesService;
 
-    @PatchMapping("/initialLikes/likes")
+    @PatchMapping("/likes")
     public ResponseEntity<?> patchLikes(@RequestBody InitialLikesDTO dto) {
         int likes;
 
