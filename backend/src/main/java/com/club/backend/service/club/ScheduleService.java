@@ -22,9 +22,6 @@ public class ScheduleService {
         List<Schedule> schedules = scheduleRepository.findAll();
 
         return schedules.stream().map(schedule -> {
-            Club club = clubRepository.findById(schedule.getClub().getClubId())
-                    .orElseThrow(() -> new EntityNotFoundException("Club not found for club id: " + schedule.getClub().getClubId()));
-
             ScheduleDTO scheduleDTO = new ScheduleDTO();
 
             scheduleDTO.setClubId(schedule.getClub().getClubId());
