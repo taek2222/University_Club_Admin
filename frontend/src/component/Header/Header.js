@@ -11,12 +11,6 @@ const Header = ({ activeMainContent, setActiveMainContent }) => {
                     응원문구
                 </div>
                 <div
-                    onClick={() => setActiveMainContent("Club")}
-                    className={`${activeMainContent === "Club" ? "text-blue-600" : ""} hover:cursor-pointer`}
-                >
-                    동아리
-                </div>
-                <div
                     onClick={() => setActiveMainContent("Schedule")}
                     className={`${activeMainContent === "Schedule" ? "text-blue-600" : ""} hover:cursor-pointer`}
                 >
