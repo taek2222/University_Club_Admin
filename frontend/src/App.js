@@ -1,10 +1,14 @@
-import React from 'react';
-import MemoPage from './component/Contents/Memo/MemoPage';
+import React, {useState} from 'react';
+import Header from 'component/Header/Header'
+import Contents from 'component/Contents/Contents';
 
 const App = () => {
+  const [activeMainContent, setActiveMainContent] = useState('Memo');
+
   return (
     <div>
-      <MemoPage />
+      <Header activeMainContent={activeMainContent} setActiveMainContent={setActiveMainContent} />
+      <Contents activeMainContent={activeMainContent} />
     </div>
   );
 };
