@@ -33,6 +33,16 @@ public class MemoServiceImpl implements MemoService {
     }
 
     @Override
+    public List<Memo> getAllConfirmedMemos() {
+        return memoRepository.findByConfirm(true);
+    }
+
+    @Override
+    public List<Memo> getAllUnconfirmedMemos() {
+        return memoRepository.findByConfirm(false);
+    }
+
+    @Override
     public Memo getMemoById(Long memoId) {
         return memoRepository.findById(memoId).orElse(null);
     }

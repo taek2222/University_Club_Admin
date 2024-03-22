@@ -22,6 +22,18 @@ public class MemoController {
         return ResponseEntity.ok().body(memos);
     }
 
+    @GetMapping("/confirmed")
+    public ResponseEntity<List<Memo>> getConfirmedMemos() {
+        List<Memo> memos = memoService.getAllConfirmedMemos();
+        return ResponseEntity.ok().body(memos);
+    }
+
+    @GetMapping("/unconfirmed")
+    public ResponseEntity<List<Memo>> getUnconfirmedMemos() {
+        List<Memo> memos = memoService.getAllUnconfirmedMemos();
+        return ResponseEntity.ok().body(memos);
+    }
+
     @GetMapping("/memo/{id}")
     public ResponseEntity<Memo> getMemoById(@PathVariable("id") Long memoId) {
         Memo memo = memoService.getMemoById(memoId);
