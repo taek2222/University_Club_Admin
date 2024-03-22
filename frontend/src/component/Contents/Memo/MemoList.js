@@ -60,12 +60,12 @@ const MemoList = ({ onSelectMemo }) => {
               {memo.confirm === true ? <img src={check} alt="check" className='w-4 h-4 mt-1 ml-1' /> : ''}
             </div>
             <div className='flex'>
-              <p>{memo.major}</p>
-              <p className='ml-5'>{memo.classOf}</p>
-              <p className='ml-5'>{memo.studentName}</p>
-              <p className='ml-5'>{memo.color}</p>
+              <p>전공:{memo.major}</p>
+              <p className='ml-3'>학번:{memo.classOf}</p>
+              <p className='ml-3'>이름:{memo.studentName}</p>
+              <p className='ml-3'>색상:{memo.color}</p>
             </div>
-            <p>내용: {memo.content}</p>
+            <p>내용:{memo.content}</p>
             <button className='bg-green-200 font-bold' onClick={() => handleUpdate(memo.memoId)}>Update</button>
             <button className='ml-10 mb-3 bg-red-200 font-bold' onClick={() => handleDelete(memo.memoId)}>Delete</button>
             <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>승인</button>
