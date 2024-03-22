@@ -11,11 +11,13 @@ const MemoPage = () => {
   };
 
   return (
-    <div>
+    <div className='p-5'>
       <h1>Memo Page</h1>
       <CreateMemoForm />
-      <MemoList onSelectMemo={handleSelectMemo} />
-      {selectedMemoId && <UpdateMemoForm memoId={selectedMemoId} />}
+      <div className='flex'>
+        <MemoList onSelectMemo={handleSelectMemo} />
+        {selectedMemoId && <UpdateMemoForm memoId={selectedMemoId} />}
+      </div>
     </div>
   );
 };

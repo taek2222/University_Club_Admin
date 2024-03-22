@@ -37,11 +37,16 @@ const CreateMemoForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input className='border-2' type="text" name="major" value={formData.major} onChange={handleChange} />
-      <input className='border-2' type="text" name="classOf" value={formData.classOf} onChange={handleChange} />
-      <input className='border-2' type="text" name="studentName" value={formData.studentName} onChange={handleChange} />
-      <input className='border-2' type="text" name="content" value={formData.content} onChange={handleChange} />
-      <input className='border-2' type="text" name="color" value={formData.color} onChange={handleChange} />
+      <label className='ml-3'>전공: </label>
+      <input className='border-2 w-40' type="text" name="major" value={formData.major} onChange={handleChange} />
+      <label className='ml-3'>학번: </label>
+      <input className='border-2 w-40' type="text" name="classOf" value={formData.classOf} onChange={handleChange} />
+      <label className='ml-3'>이름: </label>
+      <input className='border-2 w-40' type="text" name="studentName" value={formData.studentName} onChange={handleChange} />
+      <label className='ml-3'>내용: </label>
+      <input className='border-2 w-40' type="text" name="content" value={formData.content} onChange={handleChange} />
+      <label className='ml-3'>색상: </label>
+      <input className='border-2 w-40' type="text" name="color" placeholder='ex) bg-red-200' value={formData.color} onChange={handleChange} />
       <button className='ml-3 font-bold bg-green-200' type="submit">Create Memo</button>
     </form>
   );

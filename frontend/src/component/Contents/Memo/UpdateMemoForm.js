@@ -37,7 +37,7 @@ const UpdateMemoForm = ({ memoId }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='mt-10 ml-36'>
       <input className='border-2' type="text" value={value} onChange={handleChange} />
       <button className='ml-3 bg-green-200 font-bold' type="submit">Update Memo</button>
     </form>
