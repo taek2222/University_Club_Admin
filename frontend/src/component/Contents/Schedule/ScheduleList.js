@@ -61,9 +61,11 @@ const ScheduleList = () => {
               <p className='ml-3'>종료시간:{schedule.eventEndTime}</p>
               <p className='ml-3'>상태:{schedule.status}</p>
             </div>
-            <button className='bg-green-200 font-bold' onClick={() => handleUpdate(schedule.scheduleId, '온라인')}>온라인</button>
-            <button className='ml-10 mb-3 bg-red-200 font-bold' onClick={() => handleUpdate(schedule.scheduleId, '오프라인')}>오프라인</button>
-            <button className='ml-10 font-bold bg-gray-200' onClick={() => handleUpdate(schedule.scheduleId, '조기종료')}>조기종료</button>
+            <button className='bg-green-200 font-bold' onClick={() => handleUpdate(schedule.scheduleId, '운영중')}>운영중</button>
+            <button className='ml-10 bg-gray-200 font-bold' onClick={() => handleUpdate(schedule.scheduleId, '종료')}>종료</button>
+            <button className='ml-10 font-bold bg-orange-200' onClick={() => handleUpdate(schedule.scheduleId, '조기종료')}>조기종료</button>
+            <button className='ml-10 bg-yellow-200 font-bold' onClick={() => handleUpdate(schedule.scheduleId, '일시중지')}>일시중지</button>
+            <button className='ml-10 bg-red-200 font-bold' onClick={() => handleUpdate(schedule.scheduleId, '혼잡')}>혼잡</button>
             <button className='ml-10 mb-3 bg-red-400 font-bold' onClick={() => handleDelete(schedule.scheduleId)}>삭제</button>
         </div>
       ))}
