@@ -1,12 +1,12 @@
 import React from "react";
 import MemoPage from "./Memo/MemoPage";
+import SchedulePage from "./Schedule/SchedulePage";
 
 const Contents = ({activeMainContent}) => {
     return (
         <div>
             {activeMainContent === 'Memo' && <MemoPage />}
-            {/* {activeMainContent === 'Club' && <Club />}
-            {activeMainContent === 'Calendar' && <Schedule />} */}
+            {activeMainContent === 'Schedule' && <SchedulePage />}
         </div>
       );
 }

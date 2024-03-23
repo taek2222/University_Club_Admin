@@ -3,10 +3,8 @@ package com.club.backend.controller;
 import com.club.backend.dto.club.ScheduleDTO;
 import com.club.backend.service.club.ScheduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -14,6 +12,11 @@ import java.util.List;
 @RequestMapping("/schedules")
 public class ScheduleController {
     private final ScheduleService scheduleService;
+
+    @PostMapping("/create")
+    public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
+        return scheduleService.createSchedule(scheduleDTO);
+    }
 
     @GetMapping("/all")
     public List<ScheduleDTO> getAllSchedules() {
@@ -24,4 +27,15 @@ public class ScheduleController {
     public List<ScheduleDTO> getBySchedules(@PathVariable("clubId") int clubId) {
         return scheduleService.getBySchedules(clubId);
     }
+
+    @PatchMapping("/update/{scheduleId}")
+    public ScheduleDTO updateSchedule(@PathVariable(name = "scheduleId") int scheduleId, @RequestBody ScheduleDTO scheduleDTO) {
+        return scheduleService.updateSchedule(scheduleId, scheduleDTO);
+    }
+
+    @DeleteMapping("/delete/{scheduleId}")
+    public String deleteSchedule(@PathVariable(name = "scheduleId") int scheduleId) {
+        return scheduleService.deleteSchedule(scheduleId);
+    }
+
 }

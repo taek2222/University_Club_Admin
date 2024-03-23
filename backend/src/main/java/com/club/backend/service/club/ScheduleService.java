@@ -16,6 +16,27 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final ClubRepository clubRepository;
+
+    public ScheduleDTO createSchedule(ScheduleDTO scheduleDTO) {
+        Schedule schedule = new Schedule();
+
+        schedule.setClub(clubRepository.findById(scheduleDTO.getClubId())
+                .orElseThrow(() -> new EntityNotFoundException("Club not found")));
+        schedule.setPart(scheduleDTO.getPart());
+        schedule.setLocation(scheduleDTO.getLocation());
+        schedule.setIconUrl(scheduleDTO.getIconUrl());
+        schedule.setImageUrl(scheduleDTO.getImageUrl());
+        schedule.setCategory(scheduleDTO.getCategory());
+        schedule.setEventTime(scheduleDTO.getEventTime());
+        schedule.setEventEndTime(scheduleDTO.getEventEndTime());
+        schedule.setStatus(scheduleDTO.getStatus());
+
+        scheduleRepository.save(schedule);
+
+        return scheduleDTO;
+    }
+
 
     public List<ScheduleDTO> getAllSchedules() {
         List<Schedule> schedules = scheduleRepository.findAll();
@@ -23,6 +44,7 @@ public class ScheduleService {
         return schedules.stream().map(schedule -> {
             ScheduleDTO scheduleDTO = new ScheduleDTO();
 
+            scheduleDTO.setScheduleId(schedule.getScheduleId());
             scheduleDTO.setClubId(schedule.getClub().getClubId());
             scheduleDTO.setClubName(schedule.getClub().getClubName());
             scheduleDTO.setField(schedule.getClub().getType().getField());
@@ -33,6 +55,7 @@ public class ScheduleService {
             scheduleDTO.setCategory(schedule.getCategory());
             scheduleDTO.setEventTime(schedule.getEventTime());
             scheduleDTO.setEventEndTime(schedule.getEventEndTime());
+            scheduleDTO.setStatus(schedule.getStatus());
             return scheduleDTO;
         }).collect(Collectors.toList());
     }
@@ -44,6 +67,7 @@ public class ScheduleService {
 
             scheduleDTO.setCategory(schedule.getCategory());
             scheduleDTO.setEventTime(schedule.getEventTime());
+            scheduleDTO.setEventEndTime(schedule.getEventEndTime());
 
             return scheduleDTO;
         }).collect(Collectors.toList());
@@ -52,4 +76,28 @@ public class ScheduleService {
     public Boolean ScheduleUse(int clubId) {
         return scheduleRepository.existsByClub_ClubId(clubId);
     }
+
+    public ScheduleDTO updateSchedule(int scheduleId, ScheduleDTO scheduleDTO) {
+        Schedule schedule = scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new EntityNotFoundException("Schedule not found"));
+
+        schedule.setPart(scheduleDTO.getPart());
+        schedule.setLocation(scheduleDTO.getLocation());
+        schedule.setIconUrl(scheduleDTO.getIconUrl());
+        schedule.setImageUrl(scheduleDTO.getImageUrl());
+        schedule.setCategory(scheduleDTO.getCategory());
+        schedule.setEventTime(scheduleDTO.getEventTime());
+        schedule.setEventEndTime(scheduleDTO.getEventEndTime());
+        schedule.setStatus(scheduleDTO.getStatus());
+
+        scheduleRepository.save(schedule);
+
+        return scheduleDTO;
+    }
+
+    public String deleteSchedule(int scheduleId) {
+        scheduleRepository.deleteById(scheduleId);
+        return "Schedule with ID: " + scheduleId + " deleted successfully";
+    }
+
 }

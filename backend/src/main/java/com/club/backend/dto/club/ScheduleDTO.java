@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ScheduleDTO {
-    private int performanceId;
+    private int scheduleId;
     private int clubId;
     private String clubName;
     private String field;
@@ -21,4 +21,5 @@ public class ScheduleDTO {
     private String category;
     private LocalDateTime eventTime;
     private LocalDateTime eventEndTime;
+    private String status;
 }
