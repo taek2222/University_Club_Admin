@@ -1,3 +1,4 @@
+// REVIEWED: 2024-03-22 by [Oh Yeon Taek]
 package com.club.backend.entity.club;
 
 import jakarta.persistence.*;
@@ -6,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "initial_likes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,3 +1,4 @@
+// REVIEWED: 2024-03-22 by [Oh Yeon Taek]
 package com.club.backend.entity.join;
 
 import com.club.backend.entity.club.Club;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "term")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,3 +1,4 @@
+// REVIEWED: 2024-03-22 by [Oh Yeon Taek]
 package com.club.backend.entity.join;
 
 import com.club.backend.entity.club.Club;
@@ -6,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,8 +27,11 @@ public class Join {
     private String title;
 
     @ElementCollection
-    @Column(name="paths")
-    private List<Boolean> paths;
+    @CollectionTable(name = "join_paths", joinColumns =
+        @JoinColumn(name = "club_id")
+    )
+    @Column(name="path")
+    private List<Boolean> paths = new ArrayList<>();
 
     @OneToOne
     @MapsId
