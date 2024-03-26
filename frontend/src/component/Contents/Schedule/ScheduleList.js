@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from 'api';
+import axios from 'axios';
 
 const ScheduleList = () => {
   const [schedules, setSchedules] = useState([]);
@@ -45,11 +46,22 @@ const ScheduleList = () => {
         console.error('Error updating schedule:', error);
       });
   };
+
+  const handleRefresh = () => {
+    axios.get(`http://34.22.93.96:8080/schedules/all/cache/reset`)
+      .then(_ => {
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error('Error refresh schedule:', error);
+      });
+  };
   
 
   return (
     <div>
       <h1 className='mt-3'>schedule List</h1>
+      <button className='text-xl font-bold bg-lime-300' onClick={() => handleRefresh()}>홈페이지에 적용</button>
       {schedules.map(schedule => (
         <div key={schedule.scheduleId}>
             <div className='flex'>
