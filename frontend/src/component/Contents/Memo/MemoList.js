@@ -4,6 +4,7 @@ import check from 'image/content_image/check.png'
 
 const MemoList = ({ onSelectMemo }) => {
   const [memos, setMemos] = useState([]);
+  const [selectedMemo, setSelectedMemo] = useState(null);
 
   useEffect(() => {
     apiClient.get('/memos/all')
@@ -14,6 +15,14 @@ const MemoList = ({ onSelectMemo }) => {
         console.error('Error fetching memos:', error);
       });
   }, []);
+
+  const getRandomMemo = () => {
+    if (memos.length > 0) {
+      const randomIndex = Math.floor(Math.random() * memos.length);
+      const randomMemo = memos[randomIndex];
+      setSelectedMemo(randomMemo);
+    }
+  };
 
   const handleDelete = (id) => {
     apiClient.delete(`/memos/memo/${id}`)
@@ -53,6 +62,11 @@ const MemoList = ({ onSelectMemo }) => {
   return (
     <div>
       <h1 className='mt-3'>Memo List</h1>
+      <button className='font-bold text-2xl bg-orange-300' onClick={() => getRandomMemo()}>당첨자 뽑기!</button>
+      <div className='flex font-bold text-lg'>
+        <p>경품 당첨자:</p>
+        <p className='ml-1'>{selectedMemo ? `${selectedMemo.classOf} ${selectedMemo.studentName}` : ''}</p>
+      </div>
       {memos.map(memo => (
         <div key={memo.memoId}>
             <div className='flex'>
