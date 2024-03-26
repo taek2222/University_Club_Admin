@@ -5,6 +5,7 @@ import check from 'image/content_image/check.png'
 const MemoList = ({ onSelectMemo }) => {
   const [memos, setMemos] = useState([]);
   const [selectedMemo, setSelectedMemo] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     apiClient.get('/memos/all')
@@ -59,15 +60,27 @@ const MemoList = ({ onSelectMemo }) => {
       });
   };
 
+  const filteredMemos = memos.filter(memo =>
+    memo.classOf.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    memo.studentName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <h1 className='mt-3'>Memo List</h1>
       <button className='font-bold text-2xl bg-orange-300' onClick={() => getRandomMemo()}>당첨자 뽑기!</button>
-      <div className='flex font-bold text-lg'>
+      <div className='flex font-bold text-lg mb-3'>
         <p>경품 당첨자:</p>
         <p className='ml-1'>{selectedMemo ? `${selectedMemo.classOf} ${selectedMemo.studentName}` : ''}</p>
       </div>
-      {memos.map(memo => (
+      <input 
+        type="text" 
+        placeholder="검색어를 입력하세요" 
+        value={searchTerm} 
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="border border-gray-400 rounded-md px-2 py-1 mb-3"
+      />
+      {filteredMemos.map(memo => (
         <div key={memo.memoId}>
             <div className='flex'>
               <p className='font-bold'>{memo.memoId}</p>
