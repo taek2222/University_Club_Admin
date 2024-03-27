@@ -62,7 +62,7 @@ const MemoList = ({ onSelectMemo }) => {
   };
 
   const handleRefresh = () => {
-    axios.get(`http://34.22.93.96:8080/memo/confirmed/cache/reset`)
+    axios.get(`http://34.22.93.96:8080/memos/confirmed/cache/reset`)
       .then(_ => {
         window.location.reload();
       })
