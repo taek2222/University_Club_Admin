@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from 'api';
 import check from 'image/content_image/check.png'
+import axios from 'axios';
 
 const MemoList = ({ onSelectMemo }) => {
   const [memos, setMemos] = useState([]);
@@ -60,6 +61,16 @@ const MemoList = ({ onSelectMemo }) => {
       });
   };
 
+  const handleRefresh = () => {
+    axios.get(`http://34.22.93.96:8080/memo/confirmed/cache/reset`)
+      .then(_ => {
+        window.location.reload();
+      })
+      .catch(error => {
+        console.error('Error refresh schedule:', error);
+      });
+  };
+
   const filteredMemos = memos.filter(memo =>
     memo.classOf.toLowerCase().includes(searchTerm.toLowerCase()) ||
     memo.studentName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -73,12 +84,14 @@ const MemoList = ({ onSelectMemo }) => {
         <p>경품 당첨자:</p>
         <p className='ml-1'>{selectedMemo ? `${selectedMemo.classOf} ${selectedMemo.studentName}` : ''}</p>
       </div>
+      <button className='text-xl font-bold bg-lime-300' onClick={() => handleRefresh()}>홈페이지에 적용</button>
+      <br />
       <input 
         type="text" 
         placeholder="검색어를 입력하세요" 
         value={searchTerm} 
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="border border-gray-400 rounded-md px-2 py-1 mb-3"
+        className="border border-gray-400 rounded-md px-2 py-1 mt-5 mb-3"
       />
       {filteredMemos.map(memo => (
         <div key={memo.memoId}>
