@@ -16,6 +16,7 @@ const MemoList = ({ onSelectMemo }) => {
     .then(response => {
       const reversedMemos = response.data.reverse();
       setMemos(reversedMemos);
+      console.log(reversedMemos)
     })
     .catch(error => {
       console.error('Error fetching memos:', error);
@@ -124,9 +125,13 @@ const MemoList = ({ onSelectMemo }) => {
           <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>확인</button>
         </div>
       ))}
-      <button className='font-bold' disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>이전</button>
-      <span className='ml-5 font-bold'>Page {currentPage} of {totalPages}</span>
-      <button className='ml-5 font-bold' disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+      {filteredMemos.length > itemsPerPage && searchTerm.trim === '' && (
+        <>
+          <button className='font-bold' disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>이전</button>
+          <span className='ml-5 font-bold'>Page {currentPage} of {totalPages}</span>
+          <button className='ml-5 font-bold' disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+        </>
+      )}
     </div>
   );
 };
