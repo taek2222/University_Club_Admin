@@ -125,7 +125,7 @@ const MemoList = ({ onSelectMemo }) => {
           <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>확인</button>
         </div>
       ))}
-      {filteredMemos.length > itemsPerPage && searchTerm.trim === '' && (
+      {filteredMemos.length > itemsPerPage && searchTerm.trim !== '' && (
         <>
           <button className='font-bold' disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>이전</button>
           <span className='ml-5 font-bold'>Page {currentPage} of {totalPages}</span>
