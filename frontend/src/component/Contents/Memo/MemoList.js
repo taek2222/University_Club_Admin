@@ -129,7 +129,7 @@ const MemoList = ({ onSelectMemo }) => {
         <>
           <button className='font-bold' disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>이전</button>
           <span className='ml-5 font-bold'>Page {currentPage} of {totalPages}</span>
-          <button className='ml-5 font-bold' disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+          <button className='ml-5 font-bold' disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>다음</button>
         </>
       )}
     </div>
