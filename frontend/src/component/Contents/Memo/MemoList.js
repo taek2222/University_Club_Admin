@@ -26,7 +26,9 @@ const MemoList = ({ onSelectMemo }) => {
     setFilteredMemos(
       memos.filter(memo =>
         memo.classOf.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        memo.studentName.toLowerCase().includes(searchTerm.toLowerCase())
+        memo.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        memo.major.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        memo.content.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
   }, [searchTerm, memos]);
