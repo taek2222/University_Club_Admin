@@ -11,7 +11,8 @@ const MemoList = ({ onSelectMemo }) => {
   useEffect(() => {
     apiClient.get('/memos/all')
       .then(response => {
-        setMemos(response.data);
+        const reversedMemos = response.data.reverse();
+      setMemos(reversedMemos);
       })
       .catch(error => {
         console.error('Error fetching memos:', error);
