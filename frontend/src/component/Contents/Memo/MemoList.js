@@ -7,17 +7,32 @@ const MemoList = ({ onSelectMemo }) => {
   const [memos, setMemos] = useState([]);
   const [selectedMemo, setSelectedMemo] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filteredMemos, setFilteredMemos] = useState([]);
+  const itemsPerPage = 5;
+  
   useEffect(() => {
     apiClient.get('/memos/all')
-      .then(response => {
-        const reversedMemos = response.data.reverse();
+    .then(response => {
+      const reversedMemos = response.data.reverse();
       setMemos(reversedMemos);
-      })
-      .catch(error => {
-        console.error('Error fetching memos:', error);
-      });
+    })
+    .catch(error => {
+      console.error('Error fetching memos:', error);
+    });
   }, []);
+
+  useEffect(() => {
+    setFilteredMemos(
+      memos.filter(memo =>
+        memo.classOf.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        memo.studentName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm, memos]);
+
+  const totalPages = Math.ceil(filteredMemos.length / itemsPerPage);
+  const currentItems = filteredMemos.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const getRandomMemo = () => {
     if (memos.length > 0) {
@@ -26,7 +41,7 @@ const MemoList = ({ onSelectMemo }) => {
       setSelectedMemo(randomMemo);
     }
   };
-
+  
   const handleDelete = (id) => {
     apiClient.delete(`/memos/memo/${id}`)
       .then(response => {
@@ -72,11 +87,6 @@ const MemoList = ({ onSelectMemo }) => {
       });
   };
 
-  const filteredMemos = memos.filter(memo =>
-    memo.classOf.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    memo.studentName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <div>
       <h1 className='mt-3'>Memo List</h1>
@@ -94,24 +104,27 @@ const MemoList = ({ onSelectMemo }) => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="border border-gray-400 rounded-md px-2 py-1 mt-5 mb-3"
       />
-      {filteredMemos.map(memo => (
+      {(searchTerm !== '' ? filteredMemos : currentItems).map(memo => (
         <div key={memo.memoId}>
-            <div className='flex'>
-              <p className='font-bold'>{memo.memoId}</p>
-              {memo.confirm === true ? <img src={check} alt="check" className='w-4 h-4 mt-1 ml-1' /> : ''}
-            </div>
-            <div className='flex'>
-              <p>전공:{memo.major}</p>
-              <p className='ml-3'>학번:{memo.classOf}</p>
-              <p className='ml-3'>이름:{memo.studentName}</p>
-              <p className='ml-3'>색상:{memo.color}</p>
-            </div>
-            <p>내용:{memo.content}</p>
-            <button className='bg-green-200 font-bold' onClick={() => handleUpdate(memo.memoId)}>Update</button>
-            <button className='ml-10 mb-3 bg-red-200 font-bold' onClick={() => handleDelete(memo.memoId)}>Delete</button>
-            <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>승인</button>
+          <div className='flex'>
+            <p className='font-bold'>{memo.memoId}</p>
+            {memo.confirm === true ? <img src={check} alt="check" className='w-4 h-4 mt-1 ml-1' /> : ''}
+          </div>
+          <div className='flex'>
+            <p>전공: {memo.major}</p>
+            <p className='ml-3'>학번: {memo.classOf}</p>
+            <p className='ml-3'>이름: {memo.studentName}</p>
+            <p className='ml-3'>색상: {memo.color}</p>
+          </div>
+          <p>내용: {memo.content}</p>
+          <button className='bg-green-200 font-bold' onClick={() => handleUpdate(memo.memoId)}>수정</button>
+          <button className='ml-10 mb-3 bg-red-200 font-bold' onClick={() => handleDelete(memo.memoId)}>삭제</button>
+          <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>확인</button>
         </div>
       ))}
+      <button className='font-bold' disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>이전</button>
+      <span className='ml-5 font-bold'>Page {currentPage} of {totalPages}</span>
+      <button className='ml-5 font-bold' disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
     </div>
   );
 };
