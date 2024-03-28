@@ -122,7 +122,7 @@ const MemoList = ({ onSelectMemo }) => {
           <p>내용: {memo.content}</p>
           <button className='bg-green-200 font-bold' onClick={() => handleUpdate(memo.memoId)}>수정</button>
           <button className='ml-10 mb-3 bg-red-200 font-bold' onClick={() => handleDelete(memo.memoId)}>삭제</button>
-          <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>확인</button>
+          <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>승인</button>
         </div>
       ))}
       {filteredMemos.length > itemsPerPage && searchTerm.trim !== '' && (
