@@ -9,7 +9,7 @@ const MemoList = ({ onSelectMemo }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredMemos, setFilteredMemos] = useState([]);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   
   useEffect(() => {
     apiClient.get('/memos/all')
