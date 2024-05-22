@@ -9,7 +9,7 @@ const MemoList = ({ onSelectMemo }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredMemos, setFilteredMemos] = useState([]);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   
   useEffect(() => {
     apiClient.get('/memos/all')
@@ -122,7 +122,7 @@ const MemoList = ({ onSelectMemo }) => {
           <p>내용: {memo.content}</p>
           <button className='bg-green-200 font-bold' onClick={() => handleUpdate(memo.memoId)}>수정</button>
           <button className='ml-10 mb-3 bg-red-200 font-bold' onClick={() => handleDelete(memo.memoId)}>삭제</button>
-          <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>확인</button>
+          <button className='ml-10 font-bold bg-blue-200' onClick={() => handleConfirm(memo.memoId)}>승인</button>
         </div>
       ))}
       {filteredMemos.length > itemsPerPage && searchTerm.trim !== '' && (
